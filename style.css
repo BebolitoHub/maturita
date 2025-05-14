@@ -158,14 +158,15 @@ input {
   }
 }
 
+
 .subject-title {
-  display: block;
+  text-align: center;
   color: #152148;
-  font-size: 1.2em;
-  margin-top: 1.5em;
+  font-size: 1.3rem;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
   font-family: 'Bricolage Grotesque', sans-serif;
 }
-
 
 
 @media (max-width: 768px) {
