@@ -72,17 +72,18 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
 
     let testoGenerato = data.choices[0].message.content;
     // Formatta le materie come titoli in grassetto
-   const materie = [
+  const materie = [
   'Italiano', 'Storia', 'Filosofia', 'Scienze', 'Inglese', 'Arte', 
   'Educazione Civica', 'Latino', 'Geografia', 'Greco', 'Diritto', 
   'Fisica', 'Francese', 'Matematica', 'Economia Aziendale'
 ];
 
 materie.forEach(materia => {
-  const pattern = new RegExp(`\\*\\*${materia}\\*\\*:?`, 'g'); // cerca **Materia**:
-  const replacement = `<strong class="subject-title">${materia}:</strong>`;
+  const pattern = new RegExp(`\\*\\*${materia}\\*\\*:?`, 'g');
+  const replacement = `<h3 class="subject-title">${materia}</h3>`;
   testoGenerato = testoGenerato.replace(pattern, replacement);
 });
+
     res.json({ risposta: testoGenerato });
 
   } catch (error) {
