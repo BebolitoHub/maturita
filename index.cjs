@@ -49,7 +49,9 @@ app.post('/api/collegamenti', async (req, res) => {
 
 Per ogni materia, proponi **un solo collegamento rilevante**, spiegandolo in **2-3 frasi al massimo** in modo chiaro, concreto e utile per un’esposizione orale. Evita collegamenti forzati o troppo generici.
 
-Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere chiaro e coerente con il tema.`
+Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere chiaro e coerente con il tema.
+
+Rispondi usando sempre il formato: **Materia**: contenuto, con una riga a capo tra una materia e l’altra.`
           },
           {
             role: 'user',
@@ -72,8 +74,8 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
 
     let testoGenerato = data.choices[0].message.content.trim();
 
-    // PARSER AVANZATO: trasforma blocco markdown in HTML formattato
-    const blocchi = testoGenerato.split(/(?:\n|^)\s*\*\*(.+?)\*\*\s*:?\s*/g).filter(Boolean);
+    // PARSER MIGLIORATO: supporta markdown flessibile di OpenAI
+    const blocchi = testoGenerato.split(/(?:\n|^)\s*\*\*(.+?)\*\*\s*:?[\s\n]*/g).filter(Boolean);
     let html = '';
     for (let i = 0; i < blocchi.length; i += 2) {
       const materia = blocchi[i];
@@ -93,4 +95,3 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
 app.listen(PORT, () => {
   console.log(`✅ Server attivo su http://localhost:${PORT}`);
 });
-
