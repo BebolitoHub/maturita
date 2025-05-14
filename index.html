@@ -56,33 +56,36 @@
       });
     });
 
-    async function generaCollegamenti() {
-      const tema = document.getElementById("tema").value;
-      const selectedSubjects = Array.from(document.querySelectorAll('.subject-btn.selected'))
-        .map(btn => btn.dataset.subject);
+  async function generaCollegamenti() {
+  const tema = document.getElementById("tema").value;
+  const selectedSubjects = Array.from(document.querySelectorAll('.subject-btn.selected'))
+    .map(btn => btn.dataset.subject);
 
-      if (selectedSubjects.length === 0) {
-        alert("Seleziona almeno una materia!");
-        return;
-      }
+  if (selectedSubjects.length === 0) {
+    alert("Seleziona almeno una materia!");
+    return;
+  }
 
-      document.getElementById("risultato").textContent = "Generazione in corso...";
+  document.getElementById("risultato").textContent = "Generazione in corso...";
+  document.getElementById("shareBtn").style.display = "none"; // Nasconde il pulsante durante la generazione
 
-      try {
-        const response = await fetch("/api/collegamenti", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ tema, subjects: selectedSubjects })
-        });
+  try {
+    const response = await fetch("/api/collegamenti", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ tema, subjects: selectedSubjects })
+    });
 
-        const data = await response.json();
-        document.getElementById("risultato").innerHTML = data.risposta;
-      } catch (error) {
-        document.getElementById("risultato").textContent = "Errore nella generazione dei collegamenti.";
-      }
-    }
+    const data = await response.json();
+    document.getElementById("risultato").innerHTML = data.risposta;
+    document.getElementById("shareBtn").style.display = "block"; // Mostra il pulsante dopo la generazione
+  } catch (error) {
+    document.getElementById("risultato").textContent = "Errore nella generazione dei collegamenti.";
+  }
+}
+
   </script>
 </body>
 </html>
