@@ -33,7 +33,7 @@ app.post('/api/collegamenti', async (req, res) => {
 
   try {
     const selectedSubjects = req.body.subjects || [];
-    
+
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -71,18 +71,21 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
     }
 
     let testoGenerato = data.choices[0].message.content;
-    // Formatta le materie come titoli in grassetto
-  const materie = [
-  'Italiano', 'Storia', 'Filosofia', 'Scienze', 'Inglese', 'Arte', 
-  'Educazione Civica', 'Latino', 'Geografia', 'Greco', 'Diritto', 
-  'Fisica', 'Francese', 'Matematica', 'Economia Aziendale'
-];
-materie.forEach(materia => {
-  const pattern = new RegExp(`\\*{2}${materia}\\*{2}:?`, 'gi');
-  const replacement = `<h3 class="subject-title">${materia}</h3>`;
-  testoGenerato = testoGenerato.replace(pattern, replacement);
-});
-});
+
+    // FORMATTAZIONE TITOLI MATERIA
+    const materie = [
+      'Italiano', 'Storia', 'Filosofia', 'Scienze', 'Inglese', 'Arte', 
+      'Educazione Civica', 'Latino', 'Geografia', 'Greco', 'Diritto', 
+      'Fisica', 'Francese', 'Matematica', 'Economia Aziendale'
+    ];
+
+    materie.forEach(materia => {
+      const pattern = new RegExp(`\\*{2}${materia}\\*{2}:?`, 'gi');
+      const replacement = `<h3 class="subject-title">${materia}</h3>`;
+      testoGenerato = testoGenerato.replace(pattern, replacement);
+    });
+
+    testoGenerato = testoGenerato.trim();
 
     res.json({ risposta: testoGenerato });
 
