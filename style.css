@@ -1,0 +1,168 @@
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f9fc;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+h1, h2 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  color: #152148;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.subjects-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.subject-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.subject-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  color: #152148;
+  border: 2px solid #152148;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  margin: 0;
+  width: auto;
+}
+
+.subject-btn.selected {
+  background-color: #152148;
+  color: white;
+}
+
+.subject-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.subject-btn.selected:hover {
+  background-color: #1f2f66;
+}
+
+.generate-btn {
+  display: block;
+  width: 200px;
+  margin: 20px auto;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #152148;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+
+.generate-btn:hover {
+  background-color: #1f2f66;
+}
+
+.result-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.meme-image {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .meme-image {
+    max-width: 90%;
+  }
+}
+
+.subject-title {
+  display: block;
+  color: #152148;
+  font-size: 1.2em;
+  margin-top: 1.5em;
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  input {
+    width: calc(100% - 30px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  pre {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
