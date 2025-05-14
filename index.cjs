@@ -77,11 +77,11 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
   'Educazione Civica', 'Latino', 'Geografia', 'Greco', 'Diritto', 
   'Fisica', 'Francese', 'Matematica', 'Economia Aziendale'
 ];
-
 materie.forEach(materia => {
-  const pattern = new RegExp(`\\*\\*${materia}\\*\\*:?`, 'g');
+  const pattern = new RegExp(`\\*{2}${materia}\\*{2}:?`, 'gi');
   const replacement = `<h3 class="subject-title">${materia}</h3>`;
   testoGenerato = testoGenerato.replace(pattern, replacement);
+});
 });
 
     res.json({ risposta: testoGenerato });
