@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Collegamenti Maturità 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Collegamenti Maturità 2025</h1>
+    <h2 class="subtitle">Inserisci il tuo tema</h2>
+    <input type="text" id="tema" placeholder="Es. Khaby Lame">
+    
+    <div class="subjects-container">
+      <h3>Seleziona le materie:</h3>
+      <div class="subject-buttons">
+        <button class="subject-btn" data-subject="Storia">Storia</button>
+        <button class="subject-btn" data-subject="Filosofia">Filosofia</button>
+        <button class="subject-btn" data-subject="Latino">Latino</button>
+        <button class="subject-btn" data-subject="Italiano">Italiano</button>
+        <button class="subject-btn" data-subject="Fisica">Fisica</button>
+        <button class="subject-btn" data-subject="Inglese">Inglese</button>
+        <button class="subject-btn" data-subject="Francese">Francese</button>
+        <button class="subject-btn" data-subject="Scienze">Scienze</button>
+        <button class="subject-btn" data-subject="Matematica">Matematica</button>
+        <button class="subject-btn" data-subject="Educazione Civica">Educazione Civica</button>
+        <button class="subject-btn" data-subject="Geografia">Geografia</button>
+        <button class="subject-btn" data-subject="Greco">Greco</button>
+        <button class="subject-btn" data-subject="Economia Aziendale">Economia Aziendale</button>
+        <button class="subject-btn" data-subject="Diritto">Diritto</button>
+      </div>
+    </div>
+
+    <button onclick="generaCollegamenti()" class="generate-btn">Genera Collegamenti</button>
+
+    <h2>Collegamenti interdisciplinari:</h2>
+    <div id="risultato" class="result-container">
+      <img src="attached_assets/image_1747154014341.png" alt="Meme collegamenti" class="meme-image">
+    </div>
+
+  </div>
+  <script>
+    // Gestione selezione materie
+    document.querySelectorAll('.subject-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        button.classList.toggle('selected');
+      });
+    });
+
+    async function generaCollegamenti() {
+      const tema = document.getElementById("tema").value;
+      const selectedSubjects = Array.from(document.querySelectorAll('.subject-btn.selected'))
+        .map(btn => btn.dataset.subject);
+
+      if (selectedSubjects.length === 0) {
+        alert("Seleziona almeno una materia!");
+        return;
+      }
+
+      document.getElementById("risultato").textContent = "Generazione in corso...";
+
+      try {
+        const response = await fetch("/api/collegamenti", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ tema, subjects: selectedSubjects })
+        });
+
+        const data = await response.json();
+        document.getElementById("risultato").innerHTML = data.risposta;
+      } catch (error) {
+        document.getElementById("risultato").textContent = "Errore nella generazione dei collegamenti.";
+      }
+    }
+  </script>
+</body>
+</html>
