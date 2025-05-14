@@ -73,7 +73,7 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
     let testoGenerato = data.choices[0].message.content.trim();
 
     // PARSER AVANZATO: trasforma blocco markdown in HTML formattato
-    const blocchi = testoGenerato.split(/\n?\*\*(.*?)\*\*:?\s*/g).filter(Boolean);
+    const blocchi = testoGenerato.split(/(?:\n|^)\s*\*\*(.+?)\*\*\s*:?\s*/g).filter(Boolean);
     let html = '';
     for (let i = 0; i < blocchi.length; i += 2) {
       const materia = blocchi[i];
