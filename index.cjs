@@ -70,24 +70,18 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
       throw new Error('Risposta non valida da OpenAI');
     }
 
-    let testoGenerato = data.choices[0].message.content;
+    let testoGenerato = data.choices[0].message.content.trim();
 
-    // FORMATTAZIONE TITOLI MATERIA
-    const materie = [
-      'Italiano', 'Storia', 'Filosofia', 'Scienze', 'Inglese', 'Arte', 
-      'Educazione Civica', 'Latino', 'Geografia', 'Greco', 'Diritto', 
-      'Fisica', 'Francese', 'Matematica', 'Economia Aziendale'
-    ];
+    // PARSER AVANZATO: trasforma blocco markdown in HTML formattato
+    const blocchi = testoGenerato.split(/\n?\*\*(.*?)\*\*:?\s*/g).filter(Boolean);
+    let html = '';
+    for (let i = 0; i < blocchi.length; i += 2) {
+      const materia = blocchi[i];
+      const contenuto = blocchi[i + 1] || '';
+      html += `<h3 class="subject-title">${materia}</h3>\n<p>${contenuto.trim()}</p>\n`;
+    }
 
-    materie.forEach(materia => {
-      const pattern = new RegExp(`\\*{2}${materia}\\*{2}:?`, 'gi');
-      const replacement = `<h3 class="subject-title">${materia}</h3>`;
-      testoGenerato = testoGenerato.replace(pattern, replacement);
-    });
-
-    testoGenerato = testoGenerato.trim();
-
-    res.json({ risposta: testoGenerato });
+    res.json({ risposta: html });
 
   } catch (error) {
     console.error('Errore API:', error);
@@ -99,3 +93,4 @@ Le materie sono: ${selectedSubjects.join(', ')}. Ogni collegamento deve essere c
 app.listen(PORT, () => {
   console.log(`✅ Server attivo su http://localhost:${PORT}`);
 });
+
