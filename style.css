@@ -152,6 +152,30 @@ input {
 .share-btn:hover {
   background-color: #1f2f66;
 }
+.blog-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.blog-section strong {
+  color: #152148;
+}
+
+.blog-section ul {
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.blog-section li {
+  margin-bottom: 8px;
+}
+
 @media (max-width: 768px) {
   .meme-image {
     max-width: 90%;
