@@ -11,13 +11,15 @@
 </head>
 <body>
   <div class="logo-container">
-  <img src="img/Futura-logoblue.png" alt="Logo Futura" class="logo-futura">
-</div>
+    <a href="https://futura.study/home-page/" target="_blank">
+      <img src="img/Futura-logoblue.png" alt="Logo Futura" class="logo-futura">
+    </a>
+  </div>
   <div class="container">
     <h1>Collegamenti Maturità 2025</h1>
     <h2 class="subtitle">Inserisci il tuo tema</h2>
     <input type="text" id="tema" placeholder="Es. Khaby Lame">
-    
+
     <div class="subjects-container">
       <h3>Seleziona le materie:</h3>
       <div class="subject-buttons">
@@ -31,7 +33,7 @@
         <button class="subject-btn" data-subject="Scienze">Scienze</button>
         <button class="subject-btn" data-subject="Matematica">Matematica</button>
         <button class="subject-btn" data-subject="Educazione Civica">Educazione Civica</button>
-        <button class="subject-btn" data-subject="Geografia">Geografia</button>
+        <button class="subject-btn" data-subject="Sociologia">Sociologia</button>
         <button class="subject-btn" data-subject="Greco">Greco</button>
         <button class="subject-btn" data-subject="Economia Aziendale">Economia Aziendale</button>
         <button class="subject-btn" data-subject="Diritto">Diritto</button>
@@ -40,15 +42,27 @@
 
     <button onclick="generaCollegamenti()" class="generate-btn">Genera Collegamenti</button>
 
-    <h2>Collegamenti interdisciplinari:</h2>
-    <div id="risultato" class="result-container">
-      <img src="img/image_1747154014341.png" alt="Meme collegamenti" class="meme-image">
+    <div class="blog-section">
+      <p>Hai ansia di cosa ti possano chiedere all’<strong>orale della maturità 2025?</strong> Se sì, questo è il posto giusto.</p>
+      <p>Con il generatore di <strong>collegamenti per la maturità di Futura</strong>, puoi trovare spunti originali, creativi e anche un po’ folli, partendo dai programmi di quarta e quinta superiore.</p>
+      <p>Il tool è facilissimo da usare:</p>
+      <ul>
+        <li>Inserisci un tema nella barra di ricerca</li>
+        <li>Seleziona le materie che vuoi collegare</li>
+        <li>Attendi qualche secondo… e scopri i collegamenti generati dall’AI</li>
+      </ul>
+      <p>Che tu stia cercando un percorso serio o qualcosa di più originale per l’<strong>orale di maturità</strong>, questo strumento ti aiuterà a costruire collegamenti efficaci e sorprendenti.</p>
+      <p>Il tempo passa, l’esame si avvicina: inizia subito a esplorare i tuoi <strong>collegamenti per la maturità 2025</strong>!</p>
     </div>
-<a href="https://www.instagram.com/futura/" target="_blank" class="share-btn" id="shareBtn" style="display: none;">
-  📸 Condividi con noi i tuoi risultati!
-</a>
 
+    <h2 id="collegamenti-titolo" style="display: none;">Collegamenti interdisciplinari:</h2>
+    <div id="risultato" class="result-container"></div>
+
+    <a href="https://www.instagram.com/futura/" target="_blank" class="share-btn" id="shareBtn" style="display: none;">
+      📸 Condividi con noi i tuoi risultati!
+    </a>
   </div>
+
   <script>
     // Gestione selezione materie
     document.querySelectorAll('.subject-btn').forEach(button => {
@@ -57,36 +71,36 @@
       });
     });
 
-  async function generaCollegamenti() {
-  const tema = document.getElementById("tema").value;
-  const selectedSubjects = Array.from(document.querySelectorAll('.subject-btn.selected'))
-    .map(btn => btn.dataset.subject);
+    async function generaCollegamenti() {
+      const tema = document.getElementById("tema").value;
+      const selectedSubjects = Array.from(document.querySelectorAll('.subject-btn.selected'))
+        .map(btn => btn.dataset.subject);
 
-  if (selectedSubjects.length === 0) {
-    alert("Seleziona almeno una materia!");
-    return;
-  }
+      if (selectedSubjects.length === 0) {
+        alert("Seleziona almeno una materia!");
+        return;
+      }
 
-  document.getElementById("risultato").textContent = "Generazione in corso...";
-  document.getElementById("shareBtn").style.display = "none"; // Nasconde il pulsante durante la generazione
+      document.getElementById("risultato").textContent = "Generazione in corso...";
+      document.getElementById("collegamenti-titolo").style.display = "block";
+      document.getElementById("shareBtn").style.display = "none";
 
-  try {
-    const response = await fetch("/api/collegamenti", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ tema, subjects: selectedSubjects })
-    });
+      try {
+        const response = await fetch("/api/collegamenti", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ tema, subjects: selectedSubjects })
+        });
 
-    const data = await response.json();
-    document.getElementById("risultato").innerHTML = data.risposta;
-    document.getElementById("shareBtn").style.display = "block"; // Mostra il pulsante dopo la generazione
-  } catch (error) {
-    document.getElementById("risultato").textContent = "Errore nella generazione dei collegamenti.";
-  }
-}
-
+        const data = await response.json();
+        document.getElementById("risultato").innerHTML = data.risposta;
+        document.getElementById("shareBtn").style.display = "block";
+      } catch (error) {
+        document.getElementById("risultato").textContent = "Errore nella generazione dei collegamenti.";
+      }
+    }
   </script>
 </body>
 </html>
